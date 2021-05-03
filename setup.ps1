@@ -5,7 +5,7 @@ if ("$env:PROCESSOR_ARCHITECTURE" -eq 'ARM64') {
 }
 
 # Download Cloud Image
-Invoke-WebRequest -Uri "https://github.com/fedora-cloud/docker-brew-fedora/raw/33/${arch}/fedora-33.20210401-${arch}.tar.xz" -OutFile Fedora.tar.xz
+Invoke-WebRequest -Uri "https://github.com/fedora-cloud/docker-brew-fedora/raw/34/${arch}/fedora-34.20210424-${arch}.tar.xz" -OutFile Fedora.tar.xz
 
 # Extract
 7z e .\Fedora.tar.xz
