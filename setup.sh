@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-dnf --setopt=install_weak_deps=False update
-dnf --setopt=install_weak_deps=False install wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils cracklib-dicts glibc-locale-source glibc-langpack-en which
+dnf --setopt=install_weak_deps=False update -y
+dnf --setopt=install_weak_deps=False install -y wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils cracklib-dicts glibc-locale-source glibc-langpack-en which
 
 username=$1
 
