@@ -18,6 +18,10 @@ dnf groupupdate -y sound-and-video
 dnf install -y mesa-dri-drivers mesa-libEGL mesa-libOpenCL mesa-libGLU mesa-libGL mesa-libOSMesa mesa-li
 bd3d mesa-libgbm mesa-libglapi mesa-libxatracker mesa-omx-drivers mesa-vdpau-drivers mesa-vulkan-drivers
 
+# Remove "Container Image" strings so neofetch looks "cooler"
+sed -i 's/ (Container Image)//g' /etc/os-release
+sed -i '/^VARIANT/g' /etc/os-release
+
 username=$1
 
 if [ -z "$username" ]; then
