@@ -4,11 +4,24 @@ This helps set up Fedora on WSL, works on WSL 1 & 2. Based on [this article](htt
 
 ## Requirements
 
-- 7zip
+- [7zip](https://www.7-zip.org/download.html) - Please add it to your `PATH` environment variable.
 
-## Setup
+## Installing
 
-1. Run `setup.ps1` this will download Fedora cloud image and launch you into fedora as root
-2. Run `setup.sh USERNAME` while root in Fedora to create your Linux account
-3. Run `exit` in Fedora to come back into Windows PowerShell
-4. Run `finalize.ps1` to set default user to the created non-root user
+### Default Setup
+
+```powershell
+.\setup.ps1
+```
+
+### Passing new User Name as parameter
+
+```powershell
+.\setup.ps1 -UserName userName
+```
+
+### Setting a custom Distro Name for WSL
+
+```powershell
+.\setup.ps1 -DistroName CustomName
+```

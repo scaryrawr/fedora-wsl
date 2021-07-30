@@ -1,22 +1,39 @@
+param(
+        # Name to give the new user
+        [string]$UserName,
+        # Name to register as
+        [string]$DistroName = 'Fedora'
+    )
+
 # Determine ARM64 or x86_64
 $arch = 'x86_64'
 if ("$env:PROCESSOR_ARCHITECTURE" -eq 'ARM64') {
     $arch = 'aarch64'
 }
 
+$scriptDir = Split-Path $PSCommandPath
+
 # Download Cloud Image
-Invoke-WebRequest -Uri "https://github.com/fedora-cloud/docker-brew-fedora/raw/34/${arch}/fedora-34.20210514-${arch}.tar.xz" -OutFile Fedora.tar.xz
+if (!(Test-Path "$scriptDir\Fedora.tar.xz")) {
+    Invoke-WebRequest -Uri "https://github.com/fedora-cloud/docker-brew-fedora/raw/34/${arch}/fedora-34.20210722-${arch}.tar.xz" -OutFile "$scriptDir\Fedora.tar.xz" -ErrorAction Stop
+}
 
 # Extract
-7z e .\Fedora.tar.xz
+if (!(Test-Path "$scriptDir\Fedora.tar")) {
+    7z e "$scriptDir\Fedora.tar.xz" -o"$scriptDir\"
+}
 
 # Make distro folder
-if (!(Test-Path "$HOME\AppData\Local\Fedora")) {
-    mkdir $HOME\AppData\Local\Fedora
+if (!(Test-Path "$HOME\AppData\Local\$DistroName")) {
+    mkdir "$HOME\AppData\Local\$DistroName"
 }
 
 # Import cloud image
-wsl --import Fedora $HOME\AppData\Local\Fedora .\Fedora.tar
+wsl --import "$DistroName" "$HOME\AppData\Local\$DistroName" "$scriptDir\Fedora.tar"
 
+$nixPath = wsl -e wslpath "$scriptDir"
 # Launch to configure
-wsl -d Fedora
+wsl -d "$DistroName" "$nixPath/setup.sh" $UserName
+
+# Set default user as first non-root user
+Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq "$DistroName"  | Set-ItemProperty -Name DefaultUid -Value 1000
