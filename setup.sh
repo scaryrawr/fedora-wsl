@@ -15,8 +15,7 @@ dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=Packag
 dnf groupupdate -y sound-and-video
 
 # Install Mesa drivers and libraries for WSLg
-dnf install -y mesa-dri-drivers mesa-libEGL mesa-libOpenCL mesa-libGLU mesa-libGL mesa-libOSMesa mesa-li
-bd3d mesa-libgbm mesa-libglapi mesa-libxatracker mesa-omx-drivers mesa-vdpau-drivers mesa-vulkan-drivers
+dnf install -y mesa-dri-drivers mesa-libEGL mesa-libOpenCL mesa-libGLU mesa-libGL mesa-libOSMesa mesa-libd3d mesa-libgbm mesa-libglapi mesa-libxatracker mesa-omx-drivers mesa-vdpau-drivers mesa-vulkan-drivers
 
 # Remove "Container Image" strings so neofetch looks "cooler"
 sed -i 's/ (Container Image)//g' /etc/os-release
