@@ -2,7 +2,9 @@ param(
         # Name to give the new user
         [string]$UserName,
         # Name to register as
-        [string]$DistroName = 'Fedora'
+        [string]$DistroName = 'Fedora',
+        # Install Location
+        [string]$InstallDirectory = "$HOME\AppData\Local\"
     )
 
 # Determine ARM64 or x86_64
@@ -24,12 +26,12 @@ if (!(Test-Path "$scriptDir\Fedora.tar")) {
 }
 
 # Make distro folder
-if (!(Test-Path "$HOME\AppData\Local\$DistroName")) {
-    mkdir "$HOME\AppData\Local\$DistroName"
+if (!(Test-Path "$InstallDirectory\$DistroName")) {
+    mkdir "$InstallDirectory\$DistroName"
 }
 
 # Import cloud image
-wsl --import "$DistroName" "$HOME\AppData\Local\$DistroName" "$scriptDir\Fedora.tar"
+wsl --import "$DistroName" "$InstallDirectory\$DistroName" "$scriptDir\Fedora.tar"
 
 $nixPath = wsl -e wslpath "$scriptDir"
 # Launch to configure
