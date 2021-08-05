@@ -25,3 +25,10 @@ This helps set up Fedora on WSL, works on WSL 1 & 2. Based on [this article](htt
 ```powershell
 .\setup.ps1 -DistroName CustomName
 ```
+
+### Setting a custom install directory
+
+```powershell
+# Will cause it to be installed at V:\Custom\Path\Fedora
+.\setup.ps1 -InstallDirectory V:\Custom\Path
+```
