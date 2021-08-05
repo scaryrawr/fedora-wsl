@@ -14,17 +14,8 @@ dnf groupupdate -y core
 dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf groupupdate -y sound-and-video
 
-# Build mesa with WSLg support
-dnf builddep -y mesa
-
-cd ~
-git clone --depth 1 https://github.com/mesa3d/mesa
-cd mesa
-mkdir build && cd build
-meson .. -Dprefix=/usr -Ddri-drivers= -Dgallium-drivers=swrast,d3d12 -Dbuildtype=release
-sudo ninja install
-cd ~
-rm -rf mesa
+dnf copr enable yanqiyu/mesa -y
+dnf install -y mesa-d3d12 mesa-dri-drivers mesa-libd3d mesa-libEGL mesa-libgbm mesa-libGL mesa-libOpenCL mesa-vdpau-drivers
 
 dnf install -y glx-utils
 
