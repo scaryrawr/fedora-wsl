@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# Remove no docs flag
+sed -i '/nodocs/d' /etc/dnf/dnf.conf
+
 dnf update -y
 
 # Install packages required for a more "expected" experience
