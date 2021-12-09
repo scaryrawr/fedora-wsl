@@ -17,7 +17,7 @@ $scriptDir = Split-Path $PSCommandPath
 
 # Download Cloud Image
 if (!(Test-Path "$scriptDir\Fedora.tar.xz")) {
-    Invoke-WebRequest -Uri "https://github.com/fedora-cloud/docker-brew-fedora/raw/35/${arch}/fedora-35.20210930-${arch}.tar.xz" -OutFile "$scriptDir\Fedora.tar.xz" -ErrorAction Stop
+    Invoke-WebRequest -Uri "https://github.com/fedora-cloud/docker-brew-fedora/raw/35/${arch}/fedora-35.20211125-${arch}.tar.xz" -OutFile "$scriptDir\Fedora.tar.xz" -ErrorAction Stop
 }
 
 # Extract
