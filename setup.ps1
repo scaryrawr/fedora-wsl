@@ -1,11 +1,13 @@
 param(
-        # Name to give the new user
-        [string]$UserName,
-        # Name to register as
-        [string]$DistroName = 'Fedora',
-        # Install Location
-        [string]$InstallDirectory = "$HOME\AppData\Local\"
-    )
+    # Name to give the new user
+    [string]$UserName,
+    # Name to register as
+    [string]$DistroName = 'Fedora',
+    # Install Location
+    [string]$InstallDirectory = "$HOME\AppData\Local\",
+    # Fedora version to install
+    [string]$Version = "35"
+)
 
 # Determine ARM64 or x86_64
 $arch = 'x86_64'
@@ -16,13 +18,13 @@ if ("$env:PROCESSOR_ARCHITECTURE" -eq 'ARM64') {
 $scriptDir = Split-Path $PSCommandPath
 
 # Download Cloud Image
-if (!(Test-Path "$scriptDir\Fedora.tar.xz")) {
-    Invoke-WebRequest -Uri "https://github.com/fedora-cloud/docker-brew-fedora/raw/35/${arch}/fedora-35.20211125-${arch}.tar.xz" -OutFile "$scriptDir\Fedora.tar.xz" -ErrorAction Stop
+if (!(Test-Path "$scriptDir\Fedora-${Version}.tar.xz")) {
+    Invoke-WebRequest -Uri "https://github.com/fedora-cloud/docker-brew-fedora/raw/${Version}/${arch}/fedora-${Version}-${arch}.tar.xz" -OutFile "$scriptDir\Fedora-${Version}.tar.xz" -ErrorAction Stop
 }
 
 # Extract
-if (!(Test-Path "$scriptDir\Fedora.tar")) {
-    7z e "$scriptDir\Fedora.tar.xz" -o"$scriptDir\"
+if (!(Test-Path "$scriptDir\Fedora-${Version}.tar")) {
+    7z e "$scriptDir\Fedora-${Version}.tar.xz" -o"$scriptDir\"
 }
 
 # Make distro folder
@@ -31,7 +33,7 @@ if (!(Test-Path "$InstallDirectory\$DistroName")) {
 }
 
 # Import cloud image
-wsl --import "$DistroName" "$InstallDirectory\$DistroName" "$scriptDir\Fedora.tar"
+wsl --import "$DistroName" "$InstallDirectory\$DistroName" "$scriptDir\Fedora-${Version}.tar"
 
 $nixPath = wsl -e wslpath "$scriptDir"
 # Launch to configure
