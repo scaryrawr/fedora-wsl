@@ -17,10 +17,19 @@ dnf groupupdate -y core
 dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf groupupdate -y sound-and-video
 
-dnf copr enable yanqiyu/mesa -y
-dnf install -y mesa-d3d12 mesa-dri-drivers mesa-libd3d mesa-libEGL mesa-libgbm mesa-libGL mesa-libOpenCL mesa-vdpau-drivers
+dnf install -y glx-utils systemd-devel
 
-dnf install -y glx-utils
+# Set up SystemD
+git clone https://github.com/ubuntu/wsl-setup
+cd wsl-setup
+make
+make install
+
+cd ..
+rm -rf wsl-setup
+
+echo '[boot]
+command=/usr/libexec/wsl-systemd' >> /etc/wsl.conf
 
 # Remove "Container Image" strings so neofetch looks "cooler"
 sed -i 's/ (Container Image)//g' /etc/os-release
