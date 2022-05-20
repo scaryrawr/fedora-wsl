@@ -6,7 +6,7 @@ param(
     # Install Location
     [string]$InstallDirectory = "$HOME\AppData\Local\",
     # Fedora version to install
-    [string]$Version = "35"
+    [string]$Version = "36"
 )
 
 # Determine ARM64 or x86_64
