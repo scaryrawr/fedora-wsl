@@ -6,7 +6,7 @@ sed -i '/nodocs/d' /etc/dnf/dnf.conf
 dnf update -y
 
 # Install packages required for a more "expected" experience
-dnf install -y wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils cracklib-dicts glibc-locale-source glibc-langpack-en which git-lfs vim
+dnf install -y wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils cracklib-dicts glibc-locale-source glibc-langpack-en which git-lfs vim PackageKit-command-not-found mesa-dri-drivers glx-utils
 
 # Get developer tools
 dnf groupinstall -y 'Development Libraries' 'Development Tools'
@@ -17,23 +17,8 @@ dnf groupupdate -y core
 dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf groupupdate -y sound-and-video
 
-dnf install -y glx-utils systemd-devel
-
-# Set up SystemD
-git clone https://github.com/ubuntu/wsl-setup
-cd wsl-setup
-make
-make install
-
-cd ..
-rm -rf wsl-setup
-
-echo '[boot]
-command=/usr/libexec/wsl-systemd' >> /etc/wsl.conf
-
-# Remove "Container Image" strings so neofetch looks "cooler"
-sed -i 's/ (Container Image)//g' /etc/os-release
-sed -i '/^VARIANT/g' /etc/os-release
+./systemd-setup.sh
+./setup-xwayland.sh
 
 username=$1
 
