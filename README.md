@@ -1,6 +1,6 @@
 # Fedora Importer
 
-This helps set up Fedora on WSL, works on WSL 1 & 2. Based on [this article](https://fedoramagazine.org/wsl-fedora-33/).
+This helps set up Fedora on WSL, works on WSL 2. Based on [this article](https://fedoramagazine.org/wsl-fedora-33/).
 
 ## Requirements
 
