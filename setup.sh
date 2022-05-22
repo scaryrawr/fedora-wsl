@@ -3,10 +3,11 @@
 # Remove no docs flag
 sed -i '/nodocs/d' /etc/dnf/dnf.conf
 
+dnf copr enable scaryrawr/mesa-d3d12 -y
 dnf update -y
 
 # Install packages required for a more "expected" experience
-dnf install -y wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils cracklib-dicts glibc-locale-source glibc-langpack-en which git-lfs vim PackageKit-command-not-found mesa-dri-drivers glx-utils
+dnf install -y wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils cracklib-dicts glibc-locale-source glibc-langpack-en which git-lfs vim PackageKit-command-not-found mesa-dri-drivers mesa-d3d12 glx-utils
 
 # Get developer tools
 dnf groupinstall -y 'Development Libraries' 'Development Tools'
@@ -27,5 +28,5 @@ if [ -z "$username" ]; then
     read username
 fi
 
-useradd -G wheel $username
+useradd -m -G adm,wheel,dialout,cdrom,floppy,audio,video $username
 passwd $username
