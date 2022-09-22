@@ -6,7 +6,7 @@ param(
     # Install Location
     [string]$InstallDirectory = "$HOME\AppData\Local\",
     # Fedora version to install
-    [string]$Version = "37"
+    [string]$Version = "36"
 )
 
 # Determine ARM64 or x86_64
@@ -47,7 +47,6 @@ Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentV
 # Version 0.67.6.0 and newer support systemd by default
 if ($wslVersion -lt '0.67.6.0') {
     wsl -u root -d "$DistroName" "$nixPath/systemd-setup.sh"
-    wsl -u root -d "$DistroName" "$nixPath/setup-xwayland.sh"
 
     # Update Windows Terminal Profiles
     $guid = (New-Guid).Guid.ToString()
@@ -91,6 +90,8 @@ if ($wslVersion -lt '0.67.6.0') {
 else {
     wsl -u root -d "$DistroName" "$nixPath/systemd-enable.sh"
 }
+
+wsl -u root -d "$DistroName" "$nixPath/setup-xwayland.sh"
 
 # Terminate for launching with systemd support
 wsl -t "${DistroName}"
