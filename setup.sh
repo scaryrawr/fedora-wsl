@@ -19,9 +19,6 @@ dnf update -y
 dnf copr enable scaryrawr/mesa-d3d12 -y
 dnf install -y mesa-dri-drivers mesa-d3d12 glx-utils
 
-./systemd-setup.sh
-./setup-xwayland.sh
-
 username=$1
 
 if [ -z "$username" ]; then
