@@ -92,6 +92,7 @@ else {
 }
 
 wsl -u root -d "$DistroName" "$nixPath/setup-xwayland.sh"
+wsl -u root -d "$DistroName" "$nixPath/setup-user-runtime.sh"
 
 # Terminate for launching with systemd support
 wsl -t "${DistroName}"
