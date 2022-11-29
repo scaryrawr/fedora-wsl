@@ -47,7 +47,6 @@ Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentV
 # Version 0.67.6.0 and newer support systemd by default
 if ($wslVersion -lt '0.67.6.0') {
     wsl -u root -d "$DistroName" "$nixPath/systemd-setup.sh"
-    wsl -u root -d "$DistroName" "$nixPath/setup-xwayland.sh"
 
     # Update Windows Terminal Profiles
     $guid = (New-Guid).Guid.ToString()
@@ -93,6 +92,7 @@ else {
 }
 
 wsl -u root -d "$DistroName" "$nixPath/setup-user-runtime.sh"
+wsl -u root -d "$DistroName" "$nixPath/setup-xwayland.sh"
 
 # Terminate for launching with systemd support
 wsl -t "${DistroName}"
