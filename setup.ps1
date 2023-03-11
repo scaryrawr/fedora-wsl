@@ -1,12 +1,20 @@
 param(
     # Name to give the new user
-    [string]$UserName,
+    [string]
+    $UserName,
     # Name to register as
-    [string]$DistroName = 'Fedora',
+    [string]
+    $DistroName = 'Fedora',
     # Install Location
-    [string]$InstallDirectory = "$HOME\AppData\Local\",
+    [string]
+    $InstallDirectory = "$HOME\AppData\Local\",
     # Fedora version to install
-    [string]$Version = "36"
+    [string]
+    [ValidateScript(
+        { $_ -in (((Invoke-WebRequest -Uri https://api.github.com/repos/fedora-cloud/docker-brew-fedora/branches).Content | ConvertFrom-Json).name | Where-Object { $_ -match "^\d+$" }) },
+        ErrorMessage = 'Invalid Fedora Version, please check available branches https://github.com/fedora-cloud/docker-brew-fedora/branches'
+    )]
+    $Version = "37"
 )
 
 # Determine ARM64 or x86_64
