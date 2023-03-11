@@ -17,7 +17,7 @@ dnf groupupdate -y sound-and-video
 dnf update -y
 
 dnf copr enable scaryrawr/mesa-d3d12 -y
-dnf install -y mesa-dri-drivers mesa-d3d12 glx-utils
+dnf install -y mesa-dri-drivers mesa-d3d12 mesa-vdpau-drivers glx-utils
 
 username=$1
 
