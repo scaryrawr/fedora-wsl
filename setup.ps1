@@ -51,8 +51,5 @@ wsl -d "$DistroName" "$nixPath/setup.sh" $UserName
 # Set default user as first non-root user
 Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq "$DistroName"  | Set-ItemProperty -Name DefaultUid -Value 1000
 
-wsl -u root -d "$DistroName" "$nixPath/systemd-enable.sh"
-wsl -u root -d "$DistroName" "$nixPath/setup-user-runtime.sh"
-
 # Terminate for launching with systemd support
 wsl -t "${DistroName}"

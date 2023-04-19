@@ -3,6 +3,10 @@
 # Remove no docs flag
 sed -i '/nodocs/d' /etc/dnf/dnf.conf
 
+# Enable systemd
+echo '[boot]
+systemd=true' >> /etc/wsl.conf
+
 # Install packages required for a more "expected" experience
 dnf install -y wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils cracklib-dicts glibc-locale-source glibc-langpack-en which git-lfs vim PackageKit-command-not-found
 
@@ -17,7 +21,8 @@ dnf groupupdate -y sound-and-video
 dnf update -y
 
 dnf copr enable scaryrawr/mesa-d3d12 -y
-dnf install -y mesa-dri-drivers mesa-d3d12 mesa-vdpau-drivers glx-utils
+dnf install --disablerepo="*" --enablerepo="copr:copr.fedorainfracloud.org:scaryrawr:mesa-d3d12" -y mesa-dri-drivers mesa-d3d12 mesa-vdpau-drivers
+dnf install glx-utils
 
 username=$1
 
