@@ -21,8 +21,8 @@ dnf groupupdate -y sound-and-video
 dnf update -y
 
 dnf copr enable scaryrawr/mesa-d3d12 -y
-dnf install --disablerepo="*" --enablerepo="copr:copr.fedorainfracloud.org:scaryrawr:mesa-d3d12" -y mesa-dri-drivers mesa-d3d12 mesa-vdpau-drivers
-dnf install glx-utils
+dnf install --disablerepo="*" --enablerepo="copr:copr.fedorainfracloud.org:scaryrawr:mesa-d3d12" -y mesa-dri-drivers mesa-d3d12 mesa-vdpau-drivers -y
+dnf install glx-utils -y
 
 username=$1
 
