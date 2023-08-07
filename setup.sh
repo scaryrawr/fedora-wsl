@@ -18,11 +18,9 @@ dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 dnf groupupdate -y core
 dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf groupupdate -y sound-and-video
-dnf update -y
-
 dnf copr enable scaryrawr/mesa-d3d12 -y
-dnf install --disablerepo="*" --enablerepo="copr:copr.fedorainfracloud.org:scaryrawr:mesa-d3d12" -y mesa-dri-drivers mesa-d3d12 mesa-vdpau-drivers -y
-dnf install glx-utils -y
+dnf update -y
+dnf install mesa-dri-drivers mesa-d3d12 mesa-vdpau-drivers -y
 
 username=$1
 
