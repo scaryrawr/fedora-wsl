@@ -22,6 +22,16 @@ dnf copr enable scaryrawr/mesa-d3d12 -y
 dnf update -y
 dnf install mesa-dri-drivers mesa-d3d12 mesa-vdpau-drivers -y
 
+git clone https://github.com/scaryrawr/bottle-imp
+
+cd bottle-imp
+
+make internal-systemd
+make internal-binfmt
+
+cd ..
+sudo rm -rf bottle-imp
+
 username=$1
 
 if [ -z "$username" ]; then
