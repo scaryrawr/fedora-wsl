@@ -14,7 +14,7 @@ param(
         { $_ -in (((Invoke-WebRequest -Uri https://api.github.com/repos/fedora-cloud/docker-brew-fedora/branches).Content | ConvertFrom-Json).name | Where-Object { $_ -match "^\d+$" }) },
         ErrorMessage = 'Invalid Fedora Version, please check available branches https://github.com/fedora-cloud/docker-brew-fedora/branches'
     )]
-    $Version = "37"
+    $Version = "39"
 )
 
 # Determine ARM64 or x86_64
