@@ -38,7 +38,7 @@ $language = $(Get-WinSystemLocale).Name.Split('-')[0]
 $arguments = @()
 if ($UserName) { $arguments += "-u `"$UserName`"" }
 if ($language) { $arguments += "-l `"$language`"" }
-if ($Password) { $arguments += "-p `"$Password`"" }
+if ($Password) { $arguments += "-p `"$(ConvertFrom-SecureString -SecureString $Password -AsPlainText)`"" }
 
 $argumentsString = $arguments -join ' '
 
