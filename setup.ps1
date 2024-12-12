@@ -2,6 +2,9 @@ param(
     # Name to give the new user
     [string]
     $UserName,
+    # Password for the new user
+    [securestring]
+    $Password,
     # Name to register as
     [string]
     $DistroName = 'Fedora',
@@ -32,7 +35,14 @@ $nixPath = wsl -e wslpath "$scriptDir"
 $language = $(Get-WinSystemLocale).Name.Split('-')[0]
 
 # Launch to configure
-wsl -d "$DistroName" "$nixPath/setup.sh" $UserName $language
+$arguments = @()
+if ($UserName) { $arguments += "-u `"$UserName`"" }
+if ($language) { $arguments += "-l `"$language`"" }
+if ($Password) { $arguments += "-p `"$Password`"" }
+
+$argumentsString = $arguments -join ' '
+
+wsl -d "$DistroName" "$nixPath/setup.sh" $argumentsString
 
 # Set default user as first non-root user
 Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq "$DistroName"  | Set-ItemProperty -Name DefaultUid -Value 1000
