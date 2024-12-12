@@ -1,6 +1,12 @@
 #!/usr/bin/env sh
 
-username=$1
+while getopts u:p:l: flag
+do
+    case "${flag}" in
+        u) username=${OPTARG};;
+        l) language=${OPTARG};;
+    esac
+done
 
 if [ -z "$username" ]; then
     echo "Please enter a new user name: "
@@ -9,3 +15,7 @@ fi
 
 useradd -m -G adm,wheel,dialout,cdrom,floppy,audio,video $username
 passwd $username
+
+if [ -n "$language" ]; then
+    sudo dnf install -y "glibc-langpack-$language"
+fi

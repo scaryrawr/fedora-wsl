@@ -29,9 +29,10 @@ if (!(Test-Path "$InstallDirectory\$DistroName")) {
 wsl --import "$DistroName" "$InstallDirectory\$DistroName" "$scriptDir\Fedora${Version}.tar.gz"
 
 $nixPath = wsl -e wslpath "$scriptDir"
+$language = $(Get-WinSystemLocale).Name.Split('-')[0]
 
 # Launch to configure
-wsl -d "$DistroName" "$nixPath/setup.sh" $UserName
+wsl -d "$DistroName" "$nixPath/setup.sh" -u "'$UserName'" -l "'$language'"
 
 # Set default user as first non-root user
 Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq "$DistroName"  | Set-ItemProperty -Name DefaultUid -Value 1000
