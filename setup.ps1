@@ -2,9 +2,6 @@ param(
     # Name to give the new user
     [string]
     $UserName,
-    # Password for the new user
-    [securestring]
-    $Password,
     # Name to register as
     [string]
     $DistroName = 'Fedora',
